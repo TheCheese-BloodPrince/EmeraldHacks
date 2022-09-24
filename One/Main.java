@@ -64,8 +64,6 @@ class Main {
       shipArray[randStartRow][storeShip1Col - 2] = true;
     }
 
-    System.out.println(storeShip1Row + "," + randStartCol);
-    System.out.println(randStartRow + "," + storeShip1Col);
 
     /*
      * Check if the user hits all of the ships equal to the numberOfSquares
