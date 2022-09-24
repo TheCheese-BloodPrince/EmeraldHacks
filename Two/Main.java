@@ -71,8 +71,6 @@ class Main {
       shipArray[randStartRow][storeShip1Col - 2] = true;
     }
     
-    System.out.println(storeShip1Row + "," + randStartCol);
-    System.out.println(randStartRow + "," + storeShip1Col);
 
     /*
      * Check if the user hits all of the ships equal to the numberOfSquares
@@ -127,7 +125,7 @@ class Main {
         break;
       }
     }
-    System.out.println("Congratulations! Your hit percentage was: " + (100*((numberOfHits/(numberOfHits+numberOfTry)))) + "%!\nThe total guesses you took were: " + (numberOfHits+numberOfTry) + "!\nYour overall time was: " + (System.currentTimeMillis()-startTime)/60000 + "minutes!");
+    System.out.println("Congratulations! Your hit percentage was: " + (100*((numberOfHits/(numberOfHits+numberOfTry)))) + "%!\nThe total guesses you took were: " + (numberOfHits+numberOfTry) + "!\nYour overall time was: " + (System.currentTimeMillis()-startTime)/60000 + " minutes!");
   }
 
   // function that creates the board evertime until you win
@@ -155,9 +153,9 @@ class Main {
         if (gridLayout[r][c] == 0) {
           System.out.print(" - ");
         } else if (gridLayout[r][c] == 1) {
-          System.out.print(" O ");
+          System.out.print("\u001B[31m"+" O "+"\u001B[37m	");
         } else if (gridLayout[r][c] == 2) {
-          System.out.print(" X ");
+          System.out.print("\u001B[32m" + " X " + "\u001B[37m");
         }
       }
     }

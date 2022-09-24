@@ -5,39 +5,51 @@ class Main {
 
 // This is the main method where we can call functions
   public static void main(String[] args) {
+    Scanner n = new Scanner(System.in);
+    System.out.println("What would you like the length of the board to be? (3-9)");
+    int size = n.nextInt();
+
+
     long startTime = System.currentTimeMillis();
     System.out.println(System.currentTimeMillis());
 
 
     // n is a Scanner object
-    Scanner n = new Scanner(System.in);
+    
 
     System.out.println(
         "Welcome to Battleship! Your objective is to sink all of the enemy's ships."
-         + "There's one 2-spaced ship and one 3-spaced ship hidden below the surface."
+         + "There's two 3-spaced ships hidden below the surface."
     );
     System.out.println();
 
     // Here we create a grid of 10 by 10 where each tile is a bool
-    boolean[][] gridLayout = new boolean[10][10];
+    int[][] gridLayout = new int[size][size];
+    for (int i = 0; i<gridLayout.length; i++) {
+      for (int j = 0; j<gridLayout[i].length; j++) {
+        gridLayout[i][j] = 0;
+      }
+    }
+
+    System.out.println(gridLayout);
 
     // Print the grid
-    layout(gridLayout);
+    layout(gridLayout, size);
 
     double numberOfTry = 0.0;
     double numberOfHits = 0.0;
     // number of ships on the board
-    int numberOfSquares = 5;
+    int numberOfSquares = 6;
 
     // Create the grid where the ships can be placed (same as the gridLayout)
-    boolean[][] shipArray = new boolean[10][10];
+    boolean[][] shipArray = new boolean[size][size];
 
     // One random position on the grid
     // Start point of the ships
-    int randStartRow = (int) (Math.random() * 9);
-    int randStartCol = (int) (Math.random() * 9);
-    int storeShip1Row = (int) (Math.random() * 9);
-    int storeShip1Col = (int) (Math.random() * 9);
+    int randStartRow = (int) (Math.random() * (size-1));
+    int randStartCol = (int) (Math.random() * (size-1));
+    int storeShip1Row = (int) (Math.random() * (size-1));
+    int storeShip1Col = (int) (Math.random() * (size-1));
 
     // Set the tile that storeShip1 and storShip2 are on to true
     shipArray[storeShip1Row][randStartCol] = true;
@@ -46,24 +58,29 @@ class Main {
     // Check if the storeShip1Row is on on row 9: If it is then add another ship
     // that is 1 to the left and set that tile to true ; if not then add a ship 1 to
     // the right and set that tile to true (Note: the storeShip1Row is 2 tiles long)
-    if (storeShip1Row == 9) {
-      storeShip1Row--;
-      shipArray[storeShip1Row][randStartCol] = true;
+    if (storeShip1Row + 3 <= (size-1)) {
+      shipArray[storeShip1Row][randStartCol + 1] = true;
+      shipArray[storeShip1Row][randStartCol + 2] = true;
+    } else if (storeShip1Col - 3 <= 0){
+      shipArray[storeShip1Row][randStartCol - 1] = true;
+      shipArray[storeShip1Row][randStartCol - 2] = true;
+
     } else {
-      storeShip1Row++;
-      shipArray[storeShip1Row][randStartCol] = true;
+      numberOfSquares -= 3;
     }
 
     // Check if the storeShip1Col is on the 9th tile: if it is not then add 3 ships
     // down and set all to true else add 3 ships up and set them to true
-    if (storeShip1Col + 3 <= 9) {
+    if (storeShip1Col + 3 <= (size-1)) {
       shipArray[randStartRow][storeShip1Col + 1] = true;
       shipArray[randStartRow][storeShip1Col + 2] = true;
-    } else {
+    } else if (storeShip1Col - 3 <= 0) {
       shipArray[randStartRow][storeShip1Col - 1] = true;
       shipArray[randStartRow][storeShip1Col - 2] = true;
+    } else {
+      numberOfSquares -= 3;
     }
-
+    
 
     /*
      * Check if the user hits all of the ships equal to the numberOfSquares
@@ -79,7 +96,7 @@ class Main {
       int columnInput = n.nextInt();
 
       // Checks if the user inputs are in bound from 0 to 9
-      if (rowInput > 9 || rowInput < 0 || columnInput > 9 || columnInput < 0) {
+      if (rowInput > (size-1) || rowInput < 0 || columnInput > (size-1) || columnInput < 0) {
         System.out.println("Input not allowed in grid. Please try again");
         System.out.print("Pick a row: ");
         rowInput = n.nextInt();
@@ -89,26 +106,26 @@ class Main {
       
       // Checks if the rowInput and columInput hit a ship on the shipArray grid and
       // not the gridLayout
-      if (shipArray[rowInput][columnInput] && !gridLayout[rowInput][columnInput]) {
+      if (shipArray[rowInput][columnInput]) {
         System.out.println("It's a hit! ");
         // Increase numberOfHits everytime a ship is hit
         numberOfHits += 1;
         // Set the tile on the gridLayout to true(same spot where the ship is)
-        gridLayout[rowInput][columnInput] = true;
+        gridLayout[rowInput][columnInput] = 2;
         // print a new grid with all of the new information
-        layout(gridLayout);
+        layout(gridLayout, size);
         // else statment that checks if you already have a hit on that spot
-      } else if (gridLayout[rowInput][columnInput]) {
-        System.out.println("You have already got a hit in this stop");
-        layout(gridLayout);
       }
 
       // if condition for missing
       if (!shipArray[rowInput][columnInput]) {
         System.out.println("It's a miss!");
-        layout(gridLayout);
+        gridLayout[rowInput][columnInput] = 1;
+        layout(gridLayout, size);
         // Always increase numberOfTry everytime you miss
         numberOfTry++;
+
+        gridLayout[rowInput][columnInput] = 1;
       }
 
       // check if we won (Hint: this is the final part of the program)
@@ -118,17 +135,19 @@ class Main {
         break;
       }
     }
-    System.out.println(numberOfHits);
-    System.out.println(numberOfTry);
-    System.out.println(numberOfHits/(numberOfHits+numberOfTry));
-    System.out.println("Congratulations! Your hit percentage was: " + (100*((numberOfHits/(numberOfHits+numberOfTry)))) + "%!\nThe total guesses you took were: " + (numberOfHits+numberOfTry) + "!\nYour overall time was: " + (System.currentTimeMillis()-startTime)/60000 + " minutes!");
+    System.out.println("Congratulations! Your hit percentage was: " + (100*((numberOfHits/(numberOfHits+numberOfTry)))) + "%!\nThe total guesses you took were: " + (numberOfHits+numberOfTry) + "!\nYour overall time was: " + (System.currentTimeMillis()-startTime)/60000 + "minutes!");
   }
 
   // function that creates the board evertime until you win
-  public static void layout(boolean[][] gridLayout) {
+  public static void layout(int[][] gridLayout, int size) {
     int storeNumOut = 0;
     // prints the row and column numbers
-    System.out.print("  0 1 2 3 4 5 6 7 8 9");
+    String e = "  ";
+    for (int i = 0; i<size; i++) {
+      e += Integer.toString(i);
+      e += "  ";
+    }
+    System.out.print(e);
 
     // Nested for loop that prints the board
     for (int r = 0; r < gridLayout.length; r++) {
@@ -146,10 +165,12 @@ class Main {
       for (int c = 0; c < gridLayout[r].length; c++) {
         // if statement that marks "-" if tile false and "x" if tile is true
         // (Note: Tiles that are true are the tiles that have ships on them)
-        if (gridLayout[r][c] == false) {
+        if (gridLayout[r][c] == 0) {
           System.out.print(" - ");
-        } else if (gridLayout[r][c] == true) {
-          System.out.print(" LOL ");
+        } else if (gridLayout[r][c] == 1) {
+          System.out.print("\u001B[31m"+" O "+"\u001B[37m");
+        } else if (gridLayout[r][c] == 2) {
+          System.out.print("\u001B[32m" + " X " + "\u001B[37m");
         }
       }
     }
