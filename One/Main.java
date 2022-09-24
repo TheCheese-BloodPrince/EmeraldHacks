@@ -2,10 +2,12 @@
 import java.util.Scanner;
 
 class Main {
-  // This is the main method where we can call functions
-  public static void main(String[] args) {
 
-    
+// This is the main method where we can call functions
+  public static void main(String[] args) {
+    long startTime = System.currentTimeMillis();
+    System.out.println(System.currentTimeMillis());
+
 
     // n is a Scanner object
     Scanner n = new Scanner(System.in);
@@ -22,8 +24,8 @@ class Main {
     // Print the grid
     layout(gridLayout);
 
-    int numberOfTry = 0;
-    int numberOfHits = 0;
+    double numberOfTry = 0.0;
+    double numberOfHits = 0.0;
     // number of ships on the board
     int numberOfSquares = 5;
 
@@ -61,6 +63,9 @@ class Main {
       shipArray[randStartRow][storeShip1Col - 1] = true;
       shipArray[randStartRow][storeShip1Col - 2] = true;
     }
+
+    System.out.println(storeShip1Row + "," + randStartCol);
+    System.out.println(randStartRow + "," + storeShip1Col);
 
     /*
      * Check if the user hits all of the ships equal to the numberOfSquares
@@ -115,6 +120,10 @@ class Main {
         break;
       }
     }
+    System.out.println(numberOfHits);
+    System.out.println(numberOfTry);
+    System.out.println(numberOfHits/(numberOfHits+numberOfTry));
+    System.out.println("Congratulations! Your hit percentage was: " + (100*((numberOfHits/(numberOfHits+numberOfTry)))) + "%!\nThe total guesses you took were: " + (numberOfHits+numberOfTry) + "!\nYour overall time was: " + (System.currentTimeMillis()-startTime)/60000 + "minutes!");
   }
 
   // function that creates the board evertime until you win
