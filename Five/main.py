@@ -145,6 +145,7 @@ def p2():
         print("There are no more spaces left in column number " + str(column_num)) 
         p2()
 
+
 while True:
     #player 1's move
     p1()
@@ -291,29 +292,138 @@ while True:
             connect4 = 0
     #check for horizontal connect 4
     term_num=0
-    connect4list = [c1,c2,c3,c4,c5,c6,c7,c8]
-    connect4shortenedlist = [c1,c2,c3,c4,c5]
-    for term in connect4shortenedlist:
+    for term in c1:
         term_num += 1
-        for i in term:
-            if i == "X":
-                try:
-                    if i[term_num][term_num] == "X":
-                        try: 
-                            if c3[term_num + 1] == "X":
-                                try:
-                                    if c3[term_num + 1] == "X":
-                                        print(player1+" wins.")
-                                        end_or_not = True
-                                    break
-                                except:
-                                    pass
-                        except:
-                            pass    
-                except: 
-                    pass 
+        if term == "X":
+            try:
+                if c2[term_num] == "X":
+                    if c3[term_num + 1] == "X":
+                        if c4[term_num + 2] == "X":
+                            print(player1+" wins.")
+                            end_or_not = True
+                            break
+            except:
+                pass
+    term_num=0        
+    for term in c2:
+        term_num += 1
+        if term == "X":
+            try:
+                if c3[term_num] == "X":
+                    if c4[term_num + 1] == "X":
+                        if c5[term_num + 2] == "X":
+                            print(player1+" wins.")
+                            end_or_not = True
+                            break
+            except:
+                pass
+    term_num=0     
+    for term in c3:
+        term_num += 1
+        if term == "X":
+            try:
+                if c4[term_num] == "X":
+                    if c5[term_num + 1] == "X":
+                        if c6[term_num + 2] == "X":
+                            print(player1+" wins.")
+                            end_or_not = True
+                            break
+            except:
+                pass
+    term_num=0    
+    for term in c4:
+        term_num += 1
+        if term == "X":
+            try:
+                if c5[term_num] == "X":
+                    if c6[term_num + 1] == "X":
+                        if c7[term_num + 2] == "X":
+                            print(player1+" wins.")
+                            end_or_not = True
+                            break
+            except:
+                pass
+    term_num=0
+    for term in c5:
+        term_num += 1
+        if term == "X":
+            try:
+                if c6[term_num] == "X":
+                    if c7[term_num + 1] == "X":
+                        if c8[term_num + 2] == "X":
+                            print(player1+" wins.")
+                            end_or_not = True
+                            break
+            except:
+                pass
+    term_num=0
+    for term in c8:
+        term_num += 1
+        if term == "X":
+            try:
+                if c7[term_num] == "X":
+                    if c6[term_num + 1] == "X":
+                        if c5[term_num + 2] == "X":
+                            print(player1+" wins.")
+                            end_or_not = True
+                            break
+            except:
+                pass  
+    term_num=0
+    for term in c7:
+        term_num += 1
+        if term == "X":
+            try:
+                if c6[term_num] == "X":
+                    if c5[term_num + 1] == "X":
+                        if c4[term_num + 2] == "X":
+                            print(player1+" wins.")
+                            end_or_not = True
+                            break
+            except:
+                pass
+    term_num=0 
+    for term in c6:
+        term_num += 1
+        if term == "X":
+            try:
+                if c5[term_num] == "X":
+                    if c4[term_num + 1] == "X":
+                        if c3[term_num + 2] == "X":
+                            print(player1+" wins.")
+                            end_or_not = True
+                            break
+            except:
+                pass  
+    term_num=0  
+    for term in c5:
+        term_num += 1
+        if term == "X":
+            try:
+                if c4[term_num] == "X":
+                    if c3[term_num + 1] == "X":
+                        if c2[term_num + 2] == "X":
+                            print(player1+" wins.")
+                            end_or_not = True
+                            break
+            except:
+                pass  
+    term_num=0   
+    for term in c4:
+        term_num += 1
+        if term == "X":
+            try:
+                if c3[term_num] == "X":
+                    if c2[term_num + 1] == "X":
+                        if c1[term_num + 2] == "X":
+                            print(player1+" wins.")
+                            end_or_not = True
+                            break
+            except:
+                pass  
+    term_num=0   
     if end_or_not == True:
-        end()   
+        exit()
     #player two's move
     p2()
     #assigns vertical columns to variables
@@ -456,3 +566,136 @@ while True:
         else:
             connect4 = 0
     #check for horizontal connect 4
+    term_num=0
+    for term in c1:
+        term_num += 1
+        if term == "O":
+            try:
+                if c2[term_num] == "O":
+                    if c3[term_num + 1] == "O":
+                        if c4[term_num + 2] == "O":
+                            print(player1+" wins.")
+                            end_or_not = True
+                            break
+            except:
+                pass
+    term_num=0        
+    for term in c2:
+        term_num += 1
+        if term == "O":
+            try:
+                if c3[term_num] == "O":
+                    if c4[term_num + 1] == "O":
+                        if c5[term_num + 2] == "O":
+                            print(player1+" wins.")
+                            end_or_not = True
+                            break
+            except:
+                pass
+    term_num=0     
+    for term in c3:
+        term_num += 1
+        if term == "O":
+            try:
+                if c4[term_num] == "O":
+                    if c5[term_num + 1] == "O":
+                        if c6[term_num + 2] == "O":
+                            print(player1+" wins.")
+                            end_or_not = True
+                            break
+            except:
+                pass
+    term_num=0    
+    for term in c4:
+        term_num += 1
+        if term == "O":
+            try:
+                if c5[term_num] == "O":
+                    if c6[term_num + 1] == "O":
+                        if c7[term_num + 2] == "O":
+                            print(player1+" wins.")
+                            end_or_not = True
+                            break
+            except:
+                pass
+    term_num=0
+    for term in c5:
+        term_num += 1
+        if term == "O":
+            try:
+                if c6[term_num] == "O":
+                    if c7[term_num + 1] == "O":
+                        if c8[term_num + 2] == "O":
+                            print(player1+" wins.")
+                            end_or_not = True
+                            break
+            except:
+                pass
+    term_num=0
+    for term in c8:
+        term_num += 1
+        if term == "O":
+            try:
+                if c7[term_num] == "O":
+                    if c6[term_num + 1] == "O":
+                        if c5[term_num + 2] == "O":
+                            print(player1+" wins.")
+                            end_or_not = True
+                            break
+            except:
+                pass  
+    term_num=0
+    for term in c7:
+        term_num += 1
+        if term == "O":
+            try:
+                if c6[term_num] == "O":
+                    if c5[term_num + 1] == "O":
+                        if c4[term_num + 2] == "O":
+                            print(player1+" wins.")
+                            end_or_not = True
+                            break
+            except:
+                pass
+    term_num=0 
+    for term in c6:
+        term_num += 1
+        if term == "O":
+            try:
+                if c5[term_num] == "O":
+                    if c4[term_num + 1] == "O":
+                        if c3[term_num + 2] == "O":
+                            print(player1+" wins.")
+                            end_or_not = True
+                            break
+            except:
+                pass  
+    term_num=0  
+    for term in c5:
+        term_num += 1
+        if term == "O":
+            try:
+                if c4[term_num] == "O":
+                    if c3[term_num + 1] == "O":
+                        if c2[term_num + 2] == "O":
+                            print(player1+" wins.")
+                            end_or_not = True
+                            break
+            except:
+                pass  
+    term_num=0   
+    for term in c4:
+        term_num += 1
+        if term == "O":
+            try:
+                if c3[term_num] == "O":
+                    if c2[term_num + 1] == "O":
+                        if c1[term_num + 2] == "O":
+                            print(player1+" wins.")
+                            end_or_not = True
+                            break
+            except:
+                pass  
+    term_num=0   
+    if end_or_not == True:
+        exit()
