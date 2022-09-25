@@ -5,11 +5,10 @@ for i in range(10):
 ocean = [["F", "-", "G", "-", "H", "-", "I", "-", "J", "-"]]
 for i in range(8):
     ocean.append(oceanrow)
-oceanrow.append("A", "-", "B", "-", "C", "-", "D", "-", "E", "-")
+ocean.append(["A", "-", "B", "-", "C", "-", "D", "-", "E", "-"])
 
-playerview = list()
-for i in range(9):
-    playerview.append(oceanrow)
+playerview = ocean
+playerview[0] = oceanrow
 
 playerShips = ["A","B","C","D","E"]
 AIships = ["F","G","H","I","J"]
@@ -26,16 +25,17 @@ def playerTurn():
             print("Invalid Input")
             playerTurn()
         
-        print("Would you like to move the ship:\n[1] Up\n[2] Right\n[3] Down\n[4] Left")
-        movement = int(input())
+        print("Would you like to move the ship:\n[U] Up\n[R] Right\n[D] Down\n[L] Left")
+        movement = input()
 
-        for i in ocean:
+        for i in range(ocean.size()):
             for j in i:
                 if j == ship:
                     shipPos = [i,j]
         
         i = shipPos[0]
         j = shipPos[1]
+        print(type(i))
 
         if movement == "U" and i<9 and ocean[i+1][j] == "-":
             ocean[i][j] = "-"
@@ -67,6 +67,28 @@ def playerTurn():
         print("What column would you like to attack(0-9)")
         column = int(input())
 
+        if not (row >= 0 and row <= 9 and column >= 0 and column <= 9):
+            print("Invalid Input")
+            playerTurn()
+        
+        for k in AIships:
+            if ocean[i][j] == k:
+                ocean[i][j] = "-"
+                print("You sunk opponent's ship: " + AIships[k])
+                AIships.remove(k)
 
+        
+
+
+def display():
+    for l in playerview:
+        e = " "
+        for k in l:
+            e += k
+            e += " "
+        print(e)
 
 while True:
+    print(playerview)
+    display()
+    playerTurn()
