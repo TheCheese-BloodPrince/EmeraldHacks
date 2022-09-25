@@ -6,9 +6,9 @@ class Main {
 // This is the main method where we can call functions
   public static void main(String[] args) {
     Scanner n = new Scanner(System.in);
-    System.out.println("What would you like the length of the board to be? (5-9)");
+    System.out.println("What would you like the length of the board to be? (6-9)");
     int size = n.nextInt();
-    if (!(size > 4 && size <= 9)) {
+    if (!(size > 5 && size <= 9)) {
       System.out.println("Invalid size");
       System.exit(0);
     }
@@ -135,7 +135,7 @@ class Main {
         break;
       }
     }
-    System.out.println("Congratulations! Your hit percentage was: " + (100*((numberOfHits/(numberOfHits+numberOfTry)))) + "%!\nThe total guesses you took were: " + (numberOfHits+numberOfTry) + "!\nYour overall time was: " + (System.currentTimeMillis()-startTime)/60000 + "minutes!");
+    System.out.println("Congratulations! Your hit percentage was: " + (100*((numberOfHits/(numberOfHits+numberOfTry)))) + "%!\nThe total guesses you took were: " + (numberOfHits+numberOfTry) + "!\nYour overall time was: " + (System.currentTimeMillis()-startTime)/60000 + " minutes!");
   }
 
   // function that creates the board evertime until you win
