@@ -24,7 +24,7 @@ class Main {
         "Welcome to Battleship! Your objective is to sink all of the enemy's ships."
             + "There's two 3-spaced ships hidden below the surface.");
     System.out.println();
-    // Here we create a grid of 10 by 10 where each tile is a bool
+    // Here we create a grid where each tile is a bool
     int[][] gridLayout = new int[size][size];
     for (int i = 0; i < gridLayout.length; i++) {
       for (int j = 0; j < gridLayout[i].length; j++) {
@@ -32,6 +32,7 @@ class Main {
       }
     }
 
+    // We create a grid for the AI to use
     int[][] aigridLayout = new int[size][size];
     for (int i = 0; i < aigridLayout.length; i++) {
       for (int j = 0; j < aigridLayout[i].length; j++) {
@@ -47,7 +48,7 @@ class Main {
     double numberOfTry = 0.0;
     double numberOfHits = 0.0;
     int ainumberOfHits = 0;
-    // number of ships on the board
+    // number of ship squares on the board
     int numberOfSquares = 6;
     int ainumberOfSquares = 6;
 
@@ -73,32 +74,28 @@ class Main {
     aiArray[aistoreShip1Row][airandStartCol] = true;
     aiArray[airandStartRow][aistoreShip1Col] = true;
 
-    // Check if the storeShip1Row is on on row 9: If it is then add another ship
+    // Check if the storeShip1Row is on on the last row: If it is then add another ship
     // that is 1 to the left and set that tile to true ; if not then add a ship 1 to
     // the right and set that tile to true (Note: the storeShip1Row is 2 tiles long)
     if (storeShip1Row + 3 <= (size - 1)) {
       shipArray[storeShip1Row][randStartCol + 1] = true;
       shipArray[storeShip1Row][randStartCol + 2] = true;
-    } else if (storeShip1Col - 3 <= 0) {
+    } else if (storeShip1Col - 3 >= 0) {
       shipArray[storeShip1Row][randStartCol - 1] = true;
       shipArray[storeShip1Row][randStartCol - 2] = true;
 
-    } else {
-      numberOfSquares -= 3;
     }
 
     if (aistoreShip1Row + 3 <= (size - 1)) {
       aiArray[aistoreShip1Row][airandStartCol + 1] = true;
       aiArray[aistoreShip1Row][airandStartCol + 2] = true;
-    } else if (aistoreShip1Col - 3 <= 0) {
+    } else if (aistoreShip1Col - 3 >= 0) {
       aiArray[aistoreShip1Row][airandStartCol - 1] = true;
       aiArray[aistoreShip1Row][airandStartCol - 2] = true;
 
-    } else {
-      ainumberOfSquares -= 3;
     }
 
-    // Check if the storeShip1Col is on the 9th tile: if it is not then add 3 ships
+    // Check if the storeShip1Col is on the last tile: if it is not then add 3 ships
     // down and set all to true else add 3 ships up and set them to true
     if (storeShip1Col + 3 <= (size - 1)) {
       shipArray[randStartRow][storeShip1Col + 1] = true;
@@ -129,7 +126,7 @@ class Main {
       System.out.print("Pick a column: ");
       int columnInput = n.nextInt();
 
-      // Checks if the user inputs are in bound from 0 to 9
+      // Checks if the user inputs are in bound from 0 to size-1
       if (rowInput > (size - 1) || rowInput < 0 || columnInput > (size - 1) || columnInput < 0) {
         System.out.println("Input not allowed in grid. Please try again");
         System.out.print("Pick a row: ");
@@ -138,7 +135,7 @@ class Main {
         columnInput = n.nextInt();
       }
 
-      // Checks if the rowInput and columInput hit a ship on the shipArray grid and
+      // Checks if the rowInput and columnInput hit a ship on the shipArray grid and
       // not the gridLayout
       if (shipArray[rowInput][columnInput]) {
         System.out.println("It's a hit! ");
@@ -218,13 +215,13 @@ class Main {
       storeNumOut += 1;
 
       /*
-       * Checks if the tile is true or false: by default all tiles are false
-       * (Note: This allows the next board that is printed to have the "-" and
-       * "x" in the spot that is a hit or miss from the previous attempt)
+       * Checks if the tile is 0, 1, or 2: by default all tiles are 0
+       * (Note: This allows the next board that is printed to have the "-", "O" and
+       * "X" in the spot that is a hit or miss from the previous attempt)
        */
       for (int c = 0; c < gridLayout[r].length; c++) {
-        // if statement that marks "-" if tile false and "x" if tile is true
-        // (Note: Tiles that are true are the tiles that have ships on them)
+        // if statement that marks "-" if the tile is 0, "O" if the tile is 1, and "X" if tile is 2
+        // (Note: Tiles that are 2 are the tiles that have ships on them and have been guessed by the player)
         if (gridLayout[r][c] == 0) {
           System.out.print(" - ");
         } else if (gridLayout[r][c] == 1) {

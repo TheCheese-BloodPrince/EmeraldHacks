@@ -27,7 +27,7 @@ class Main {
     );
     System.out.println();
 
-    // Here we create a grid of 10 by 10 where each tile is a bool
+    // Here we create a grid where each tile is a bool
     int[][] gridLayout = new int[size][size];
     for (int i = 0; i<gridLayout.length; i++) {
       for (int j = 0; j<gridLayout[i].length; j++) {
@@ -42,7 +42,7 @@ class Main {
 
     double numberOfTry = 0.0;
     double numberOfHits = 0.0;
-    // number of ships on the board
+    // number of ship squares on the board
     int numberOfSquares = 6;
 
     // Create the grid where the ships can be placed (same as the gridLayout)
@@ -59,7 +59,7 @@ class Main {
     shipArray[storeShip1Row][randStartCol] = true;
     shipArray[randStartRow][storeShip1Col] = true;
 
-    // Check if the storeShip1Row is on on row 9: If it is then add another ship
+    // Check if the storeShip1Row is on on the last row: If it is then add another ship
     // that is 1 to the left and set that tile to true ; if not then add a ship 1 to
     // the right and set that tile to true (Note: the storeShip1Row is 2 tiles long)
     if (storeShip1Row + 3 <= (size-1)) {
@@ -69,11 +69,9 @@ class Main {
       shipArray[storeShip1Row][randStartCol - 1] = true;
       shipArray[storeShip1Row][randStartCol - 2] = true;
 
-    } else {
-      numberOfSquares -= 3;
     }
 
-    // Check if the storeShip1Col is on the 9th tile: if it is not then add 3 ships
+    // Check if the storeShip1Col is on the last tile: if it is not then add 3 ships
     // down and set all to true else add 3 ships up and set them to true
     if (storeShip1Col + 3 <= (size-1)) {
       shipArray[randStartRow][storeShip1Col + 1] = true;
@@ -81,8 +79,6 @@ class Main {
     } else if (storeShip1Col - 3 <= 0) {
       shipArray[randStartRow][storeShip1Col - 1] = true;
       shipArray[randStartRow][storeShip1Col - 2] = true;
-    } else {
-      numberOfSquares -= 3;
     }
     
 
@@ -99,7 +95,7 @@ class Main {
       System.out.print("Pick a column: ");
       int columnInput = n.nextInt();
 
-      // Checks if the user inputs are in bound from 0 to 9
+      // Checks if the user inputs are in bound from 0 to size-1
       if (rowInput > (size-1) || rowInput < 0 || columnInput > (size-1) || columnInput < 0) {
         System.out.println("Input not allowed in grid. Please try again");
         System.out.print("Pick a row: ");
@@ -162,12 +158,12 @@ class Main {
       storeNumOut += 1;
 
       /*
-       * Checks if the tile is true or false: by default all tiles are false
+       * Checks if the tile is 0, 1, or 2: by default all tiles are 0
        * (Note: This allows the next board that is printed to have the "-" and
-       * "x" in the spot that is a hit or miss from the previous attempt)
+       * "X" in the spot that is a hit from the previous attempt; Misses get a "O")
        */
       for (int c = 0; c < gridLayout[r].length; c++) {
-        // if statement that marks "-" if tile false and "x" if tile is true
+        // if statement that marks "-" if tile 0, "O" if tile 1, and "x" if tile is 2
         // (Note: Tiles that are true are the tiles that have ships on them)
         if (gridLayout[r][c] == 0) {
           System.out.print(" - ");
