@@ -6,9 +6,9 @@ class Main {
 // This is the main method where we can call functions
   public static void main(String[] args) {
     Scanner n = new Scanner(System.in);
-    System.out.println("What would you like the length of the board to be? (3-9)");
+    System.out.println("What would you like the length of the board to be? (5-9)");
     int size = n.nextInt();
-    if (!(size >= 3 && size <= 9)) {
+    if (!(size > 4 && size <= 9)) {
       System.out.println("Invalid size");
       System.exit(0);
     }
